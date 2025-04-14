@@ -61,16 +61,16 @@ Ce projet est un mini-compilateur pédagogique conçu pour illustrer les étapes
 
 Le projet est organisé de la manière suivante :
 
-proj_1/ ├── init.py # Marque le dossier comme un package Python. 
-        ├── ast.py # Définit les classes de l’AST (LPProblem, Objective, Constraint, BinOp, Num, Var). 
-        ├── lexer.py # Découpe le texte source en tokens. 
-        ├── parser.py # Construit l’AST à partir des tokens. 
-        ├── visitors.py # Contient le NodeVisitor générique et le PrettyPrinterVisitor. 
-        ├── solver.py # Implémente un solveur minimaliste pour trois variables (x1, x2, x3). 
-        ├── compiler.py # Coordonne les étapes de compilation (lexing, parsing, affichage, résolution). 
-        ├── main.py # Point d’entrée du programme. 
-        └── input.txt # Exemple de problème LP à analyser.
-
+proj_1/
+├── __init__.py       # Marque le dossier comme un package Python.
+├── ast.py            # Définit les classes de l’AST (LPProblem, Objective, Constraint, BinOp, Num, Var).
+├── lexer.py          # Découpe le texte source en tokens.
+├── parser.py         # Construit l’AST à partir des tokens.
+├── visitors.py       # Contient le NodeVisitor générique et le PrettyPrinterVisitor.
+├── solver.py         # Implémente un solveur minimaliste pour trois variables (x1, x2, x3).
+├── compiler.py       # Coordonne les étapes de compilation (lexing, parsing, affichage, résolution).
+├── main.py           # Point d’entrée du programme.
+└── input.txt         # Exemple de problème LP à analyser.
 ---
 
 ## Description des Modules
