@@ -124,8 +124,43 @@ Il sert à tester et démontrer l’ensemble du processus, de l’analyse lexica
 ### Exécution
 Placez-vous dans le répertoire parent de `proj_1` et lancez la commande suivante :
 
-```bash
-python3 -m proj_1.main proj_1/input.txt
+ python3 -m proj_1.main proj_1/input.txt
 
+# LP Compiler – Mini Compilateur de Programmation Linéaire
+
+Ce projet est un mini-compilateur pédagogique conçu pour illustrer les étapes classiques d’un compilateur appliqué à la résolution de problèmes de programmation linéaire (LP). Le compilateur prend en charge un problème LP comportant trois variables inconnues (`x1`, `x2`, `x3`) et intègre toutes les phases principales du processus de compilation.
+
+---
+
+## Améliorations Futures
+
+- **Gestion Dynamique des Variables :**  
+  Adapter le solveur pour traiter dynamiquement un nombre illimité de variables au lieu de trois fixes.
+
+- **Intégration d’un Vrai Solveur :**  
+  Remplacer la solution fictive par un algorithme réel (ex. simplexe) ou intégrer une bibliothèque externe comme PuLP, OR-Tools ou `scipy.optimize.linprog`.
+
+- **Optimisation du Lexer et Parser :**  
+  Utiliser des outils générateurs de lexers/parseurs (par exemple, PLY ou rply) pour améliorer la robustesse et les performances.
+
+- **Vérifications Sémantiques :**  
+  Implémenter un module de vérification pour assurer la linéarité des expressions et détecter les erreurs d’utilisation (comme la multiplication de deux variables).
+
+- **Interface Utilisateur :**  
+  Enrichir la ligne de commande avec des options supplémentaires (affichage détaillé, export de fichiers, etc.) et fournir une meilleure documentation.
+
+---
+
+## Licence
+
+Ce projet est distribué sous licence MIT. Vous êtes libre de l’utiliser, le modifier et contribuer à son amélioration.
+
+---
+
+## Conclusion
+
+Le mini-compilateur LP présenté ici constitue une base solide pour comprendre les différentes phases de la compilation appliquées à des problèmes de programmation linéaire. Conçu pour travailler avec trois variables (`x1`, `x2`, `x3`), il offre une architecture modulaire et évolutive qui peut être améliorée et adaptée en fonction de vos besoins pédagogiques ou professionnels.
+
+Bonne exploration et bonnes expérimentations !
 
         
