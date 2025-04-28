@@ -1,6 +1,6 @@
 # LP Compiler – Mini Compilateur de Programmation Linéaire
 
-Ce projet est un mini-compilateur pédagogique conçu pour illustrer les étapes classiques d’un compilateur appliqué à la résolution de problèmes de programmation linéaire (LP). Le compilateur prend en charge un problème LP comportant trois variables inconnues (`x1`, `x2`, `x3`) et intègre toutes les phases principales du processus de compilation :
+Ce projet est un mini-compilateur pédagogique conçu pour illustrer les étapes classiques d’un compilateur appliqué à la résolution de problèmes de programmation linéaire (LP). Le compilateur prend en charge un problème LP comportant trois variables inconnues (`x1`, `x2`, `x3`) et intègre toutes les phases principales du processus de compilation ::
 
 - **Lexing** : Découpage du texte source en tokens à l’aide d’expressions régulières.
 - **Parsing** : Construction d’un arbre de syntaxe abstraite (AST) à partir des tokens.
