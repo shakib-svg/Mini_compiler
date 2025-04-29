@@ -1,16 +1,7 @@
-# parser.py
-
 from .astt import LPProblem, Objective, Constraint
 from .astt import BinOp, Num, Var
 
 class Parser:
-    """
-    Parseur descendant.
-    Gère:
-      - objective = (max|min) ':' expr ';'
-      - constraints = expr (<=|>=|=) expr ';'
-      - expressions (binOp + - * /)
-    """
     def __init__(self, tokens):
         self.tokens = tokens
         self.pos = 0
@@ -35,43 +26,35 @@ class Parser:
         return (tok and tok.kind == kind)
 
     def parse_lp_problem(self):
-        """
-        LPProblem := objective (constraint)*
-        """
+
         objective = self.parse_objective()
         constraints = []
-        # tant qu'on peut lire une expression en début de contrainte
         while (self.match("ID") or self.match("NUMBER") or self.match("LPAREN")):
             constraints.append(self.parse_constraint())
         return LPProblem(objective, constraints)
 
     def parse_objective(self):
-        """
-        objective := (MAX|MIN) ':' expr ';'
-        """
         if self.match("MAX"):
-            direction = self.eat("MAX").value.lower()  # "max"
+            direction = self.eat("MAX").value.lower()  
         elif self.match("MIN"):
-            direction = self.eat("MIN").value.lower()  # "min"
+            direction = self.eat("MIN").value.lower()  
         else:
             raise Exception("Erreur parse_objective: 'max' ou 'min' attendu.")
 
-        self.eat("COLON")      # ':'
+        self.eat("COLON")      
         expr_node = self.parse_expr()
-        self.eat("SEMICOLON")  # ';'
+        self.eat("SEMICOLON")  
         return Objective(direction, expr_node)
 
     def parse_constraint(self):
-        """
-        constraint := expr (LE|GE|EQ) expr ';'
-        """
+        
         left_expr = self.parse_expr()
 
         tok = self.current_token()
         if not tok:
             raise Exception("Fin inattendue parse_constraint.")
         if tok.kind in ("LE", "GE", "EQ"):
-            relop = tok.value  # "<=", ">=", "="
+            relop = tok.value  
             self.pos += 1
         else:
             raise Exception(f"Attendu relop <=, >=, =, trouvé={tok.kind}({tok.value}).")
@@ -80,7 +63,6 @@ class Parser:
         self.eat("SEMICOLON")
         return Constraint(left_expr, relop, right_expr)
 
-    # --- Expressions ---
     def parse_expr(self):
         node = self.parse_term()
         while self.match("PLUS") or self.match("MINUS"):

@@ -1,0 +1,82 @@
+##############################LP Compiler – Mini Compilateur de Programmation Linéaire###########################################
+
+Ce projet est un mini compilateur pédagogique conçu pour illustrer les différentes étapes d’un compilateur
+classique appliqué à un problème de programmation linéaire (LP).
+Il se compose de plusieurs modules indépendants qui s’articulent autour du lexing, du parsing, 
+de la construction d’un AST, de l’utilisation du pattern Visitor (dont un pretty printer) 
+et d’un solveur minimaliste.
+L’objectif pédagogique est d’offrir une base modulaire et évolutive sur laquelle vous pourrez construire 
+et améliorer votre propre compilateur LP. À titre d’exemple, ce compilateur est configuré pour résoudre des 
+problèmes comportant trois variables inconnues, à savoir x1, x2 et x3.
+
+---------------------------------------------------------------------------------------------------------
+proj_1/
+ ├── __init__.py           # Indique que le dossier est un package Python; contient la version.
+ ├── ast.py                # Définit toutes les classes représentant l'AST (LPProblem, Objective, Constraint, BinOp, Num, Var).
+ ├── compiler.py           # Coordonne l’ensemble des étapes du compilateur (lexing, parsing, pretty printing et solveur).
+ ├── lexer.py              # Analyse lexicale : découpe le texte source en tokens basés sur des regex.
+ ├── parser.py             # Analyse syntaxique : construit l’AST en vérifiant la grammaire du problème LP.
+ ├── solver.py             # Implémente un solveur minimaliste qui "résout" le problème fictivement pour 3 variables.
+ ├── visitors.py           # Regroupe les classes de visiteurs, dont un pretty printer pour reformater le problème LP.
+ ├── main.py               # Point d’entrée du programme, qui lit le fichier d’entrée et lance la compilation.
+ └── input.txt             # Exemple de fichier source LP, utilisé pour tester l’ensemble du compilateur.
+
+---------------------------------------------------------------------------------------------------------
+Description des Modules
+
+###########################################__init__.py
+Ce fichier est utilisé pour déclarer que le dossier proj_1 est un package Python. 
+On y définit aussi (éventuellement) la version du projet. 
+Il permet l’importation relative dans le reste du projet.
+
+##############################################astt.py
+Dans ce module, on définit les classes qui représentent la structure interne (l’AST) de notre problème LP. 
+Vous y trouverez des classes pour modéliser l’objectif (avec la direction, par exemple "max" ou "min"), 
+les contraintes (qui relient des expressions par des opérateurs relationnels comme <=, >=, ou =) 
+ainsi que pour représenter les différentes formes d’expressions (opérations binaires, nombres et variables). 
+C’est cette structure qui sera utilisée par la suite pour effectuer des transformations et pour la résolution.
+
+##############################################lexer.py
+Le lexer analyse le texte en entrée pour le découper en tokens. 
+Grâce à des expressions régulières, ce module identifie des éléments essentiels du langage 
+(mots-clés tels que max et min, opérateurs comme <= ou >=, identifiants, nombres, et autres symboles) 
+et ignore les espaces ou commentaires. Il fournit ainsi une liste de tokens que le parseur pourra utiliser.
+
+###############################################parser.py
+Ce module se charge de transformer la liste de tokens fournie par le lexer en un AST. 
+En vérifiant la structure du problème (objectif suivi de contraintes, et validation des expressions), 
+il construit les objets définis dans ast.py. C’est ici qu’intervient la logique de la grammaire du problème LP,
+vérifiant par exemple que l’objectif commence bien par max ou min et que chaque contrainte est correctement 
+formée.
+
+################################################visitors.py
+Ici, vous trouverez le patron du visiteur, avec une classe de base (NodeVisitor) 
+et une classe dérivée (PrettyPrinterVisitor). Le pretty printer parcours l’AST et reformate le problème LP 
+de façon lisible (par exemple en réécrivant l’objectif et en listant les contraintes avec une indentation 
+appropriée). Ce module permet de séparer la logique d’affichage des données de l’AST, 
+rendant le code plus modulaire et facile à étendre.
+
+##################################################solver.py
+Ce module implémente un solveur minimaliste destiné à traiter des problèmes LP comportant trois 
+variables inconnues (x1, x2, x3). Il extrait les coefficients linéaires de l’AST et, 
+dans cette version fictive, renvoie une solution fixe pour illustrer le processus. 
+L’idée est de pouvoir facilement remplacer cette partie par un véritable algorithme de 
+résolution (comme le simplex) ou l’intégration d’un solveur tiers (PuLP, OR-Tools, etc.) 
+pour obtenir une solution réelle.
+
+###################################################compiler.py
+Ce module central orchestre l’ensemble des étapes du compilateur. 
+Il utilise d’abord le lexer pour tokeniser le texte, puis le parseur pour construire l’AST. 
+Ensuite, il utilise le pretty printer pour afficher le problème de façon formatée et, 
+enfin, il appelle le solveur pour obtenir la solution. 
+Il encapsule ainsi la chaîne complète de compilation et constitue la façade du compilateur.
+
+######################################################main.py
+Le fichier principal est le point d’entrée du programme. 
+Lorsqu’on le lance depuis la ligne de commande, il lit le fichier source (par exemple input.txt), 
+crée une instance du compilateur, appelle la méthode de compilation, 
+et affiche le résultat (à la fois le problème reformatté et la solution fictive). 
+Ce script constitue l’interface utilisateur en ligne de commande.
+
+#python3 -m proj_1.main proj_1/input.txt
+#TEST.txt cest un resultat de la sortie du programme si vous trouver un probleme pour executer le programme 

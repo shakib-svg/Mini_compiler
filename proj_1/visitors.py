@@ -1,13 +1,7 @@
-# visitors.py
-
 from .astt import LPProblem, Objective, Constraint
 from .astt import BinOp, Num, Var
 
 class NodeVisitor:
-    """
-    Visiteur de base.
-    On appelle visit(node) => dispatch sur visit_<ClassName>.
-    """
     def visit(self, node):
         method_name = 'visit_' + type(node).__name__
         visitor = getattr(self, method_name, self.generic_visit)
@@ -17,9 +11,6 @@ class NodeVisitor:
         raise Exception(f"No visit_{type(node).__name__} method in {type(self).__name__}.")
 
 class PrettyPrinterVisitor(NodeVisitor):
-    """
-    Pour réafficher un problème LP.
-    """
     def visit_LPProblem(self, node: LPProblem):
         s = []
         s.append(self.visit(node.objective))
@@ -29,7 +20,7 @@ class PrettyPrinterVisitor(NodeVisitor):
         return "".join(s)
 
     def visit_Objective(self, node: Objective):
-        direction = node.direction.upper()  # "MAX" ou "MIN"
+        direction = node.direction.upper()  
         expr_str = self.visit(node.expr)
         return f"{direction}: {expr_str};\n"
 

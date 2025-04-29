@@ -1,11 +1,5 @@
-# main.py
-
 import sys
 from .compiler import LPCompiler
-
-
-
-
 def main():
     if len(sys.argv) < 2:
         print("Usage: python3 -m proj_1.main <fichier.lp>")
